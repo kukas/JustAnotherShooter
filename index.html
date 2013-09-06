@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>	
+	<script type="text/javascript" src="libs/crafty.js"></script>
+	<script type="text/javascript" src="libs/Box2dWeb-2.1.a.3.js"></script>
+	<script type="text/javascript" src="libs/craftybox.js"></script>
+
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/components.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		Crafty.init(600, 600);
+		Crafty.Box2D.init({gravityX: 0, gravityY: 0, scale:30, doSleep:true});
+		// Crafty.Box2D.debug = true;
+
+		Crafty.background("#222");
+
+		Crafty.bind("MouseMove", function(a){
+				console.log(a)
+			});
+
+		var player = Crafty.e("Objekt, Controllable")
+			.attr({x: 200, y: 200, w: 50, type: "dynamic"})
+			.color("#CE0EE3")
+
+		for (var i = 0; i < 100; i++) {
+			Crafty.e("Objekt")
+				.attr({x: randInt(0,600), y: randInt(0,600), w: randInt(5,30), type: "dynamic"})
+		};
+
+	</script>
+</body>
+</html>
