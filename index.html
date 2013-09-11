@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<head>	
+<head>
+	<meta charset="utf-8">
+
 	<script type="text/javascript" src="libs/crafty.js"></script>
 	<script type="text/javascript" src="libs/Box2dWeb-2.1.a.3.js"></script>
 	<script type="text/javascript" src="libs/craftybox.js"></script>
@@ -14,19 +16,43 @@
 		// Crafty.Box2D.debug = true;
 
 		Crafty.background("#222");
+		var player;
 
-		Crafty.bind("MouseMove", function(a){
-				console.log(a)
-			});
+		function startGame(){
+			Crafty.e("2D, Canvas, Image, Tint, Mouse")
+				.attr({w:600,h:600})
+				// .image("assets/crate.jpg","repeat")
+				// .tint("#000000", 0.9)
+				.bind("MouseMove",function(e){
+					// console.log(e)
+					player.lookAt(e.realX, e.realY);
+				})
+				.bind("Click", function(e){
+					player.shoot();
+				});
 
-		var player = Crafty.e("Objekt, Controllable")
-			.attr({x: 200, y: 200, w: 50, type: "dynamic"})
-			.color("#CE0EE3")
+			player = Crafty.e("Player, Controllable, Image")
+				.attr({x: 200, y: 200, w: 32, type: "dynamic"})
+				.image("assets/player.png");
 
-		for (var i = 0; i < 100; i++) {
-			Crafty.e("Objekt")
-				.attr({x: randInt(0,600), y: randInt(0,600), w: randInt(5,30), type: "dynamic"})
-		};
+			for (var i = 0; i < 10; i++) {
+				Crafty.e("Objekt")
+					.attr({x: randInt(0,600), y: randInt(0,600), w: randInt(80,100), type: "dynamic"});
+			};
+		}
+
+		
+
+		Crafty.load(
+			["assets/crate.jpg", "assets/player.png"],
+			startGame, 
+			function(e){
+				console.log(e);
+			},
+			function(e){
+				console.log(e);
+			}
+		);
 
 	</script>
 </body>
